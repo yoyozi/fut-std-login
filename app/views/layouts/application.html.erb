@@ -8,7 +8,15 @@
 </head>
 <body>
 
+<%= render 'layouts/nav.html.erb' %>
+
+<div class='container' >
+
 <%= yield %>
+
+</div>
+
+<%= render 'layouts/foot.html.erb' %>
 
 </body>
 </html>
