@@ -217,6 +217,24 @@ require 'capistrano/secrets_yml'
 require 'capistrano/database_yml'
 ```
 
+## Install bootstrap srr (https://github.com/twbs/bootstrap-sass)
+Add gem 'bootstrap-sass', '~> 3.3', '>= 3.3.6' in Gemfile
+change file application.css to application.css.scss 
+> vi ./application.css.scss 
+
+Add at bof
+```
+@import "bootstrap-sprockets";
+@import "bootstrap";
+```
+
+bootstrap-sprockets provides individual Bootstrap Javascript files (alert.js or dropdown.js, for example), while bootstrap provides a concatenated file containing all Bootstrap Javascripts.
+> vi application.js 
+
+```
+//= require bootstrap-sprockets
+```
+
 ## Setup the server
 
 > cap -T
