@@ -5,8 +5,8 @@ set :user,      'deployer'
 set :port,      22
 
 
-set :application, 'fut-std'
-set :repo_url, 'https://github.com/yoyozi/fut-std.git'
+set :application, 'fut-std-login'
+set :repo_url, 'https://github.com/yoyozi/fut-std-login.git'
 set :branch, "master"
 
 # Don't change these unless you know what you're doing
