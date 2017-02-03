@@ -243,3 +243,130 @@ bootstrap-sprockets provides individual Bootstrap Javascript files (alert.js or 
 > cap production deploy
 
 
+## Layout and formatting
+
+**Bootstrap and fontawesome install**
+
+In Gemfile add and bundle:
+```
+gem 'bootstrap-sass', '~> 3.3', '>= 3.3.6'
+gem 'font-awesome-sass', '~> 4.5.0'
+gem 'bootstrap-sass-extras'
+```
+
+Application.css rename to application.css.scss
+> vi application.css.scss 
+
+And add:
+```
+ *= require_tree .
+ *= require_self
+ */
+
+@import "bootstrap";
+@import "bootstrap-sprockets";
+
+@import "font-awesome";
+@import "font-awesome-sprockets";
+```
+
+> rails g bootstrap:install
+and for responsive layout run 
+>rails g bootstrap:layout application fluid
+
+## Authentication with Devise
+
+In Gemfile add and bundler
+```
+gem 'devise'
+```
+> bundle 
+> rails generate devise:install
+> rails generate devise User (user is the model you choose)
+
+gem 'bootstrap-sass-extras' gives you auto alerting and flash messaging so you dont need to add  in the file: 
+<p class="notice"><%= notice %></p>
+<p class="alert"><%= alert %></p>
+
+Change the User miration created to be
+```
+class DeviseCreateUsers < ActiveRecord::Migration
+  def change
+    create_table :users do |t|
+      ## Database authenticatable
+      t.string :username,           null: false, default: ""
+      t.string :email,              null: false, default: ""
+      t.string :encrypted_password, null: false, default: ""
+
+      ## Recoverable
+      t.string   :reset_password_token
+      t.datetime :reset_password_sent_at
+
+      ## Rememberable
+      t.datetime :remember_created_at
+
+      ## Trackable
+      t.integer  :sign_in_count, default: 0, null: false
+      t.datetime :current_sign_in_at
+      t.datetime :last_sign_in_at
+      t.inet     :current_sign_in_ip
+      t.inet     :last_sign_in_ip
+
+      ## Confirmable
+      t.string   :confirmation_token
+      t.datetime :confirmed_at
+      t.datetime :confirmation_sent_at
+      t.string   :unconfirmed_email # Only if using reconfirmable
+
+      ## Lockable
+      # t.integer  :failed_attempts, default: 0, null: false # Only if lock strategy is :failed_attempts
+      # t.string   :unlock_token # Only if unlock strategy is :email or :both
+      # t.datetime :locked_at
+
+
+      t.timestamps null: false
+    end
+
+    add_index :users, :email,                unique: true
+    add_index :users, :reset_password_token, unique: true
+    add_index :users, :confirmation_token,   unique: true
+    # add_index :users, :unlock_token,         unique: true
+  end
+end
+```
+
+> rake db:migrate
+
+**Adding simpleform (Also by platformatec who do Devise)**
+In Gemfile add and bundle 
+```
+gem 'simple_form'
+```
+> bundle
+
+Simple Form can be easily integrated to the Bootstrap. To do that you have to use the bootstrap option in the install generator, like this:
+>rails generate simple_form:install --bootstrap
+
+NOW install the Devise views as devise uses simple form
+> rails g devise:views
+
+Edit the development.rb file in environment folder to cater for mailing to url
+```
+config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
