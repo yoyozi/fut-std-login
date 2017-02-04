@@ -13,10 +13,16 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'unicorn'
 gem 'figaro'
 gem 'bootstrap-sass', '~> 3.3', '>= 3.3.6'
+<<<<<<< HEAD
 gem 'font-awesome-sass', '~> 4.7.0'
 gem 'bootstrap-sass-extras'
 gem 'devise'
 gem 'simple_form'
+=======
+gem 'font-awesome-sass', '~> 4.5.0'
+gem 'bootstrap-sass-extras'
+gem 'devise'
+>>>>>>> 846c85bf067612e6ac4eddeb55147f367796ae31
 
 group :development, :test do
   gem 'byebug'
