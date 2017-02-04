@@ -5,7 +5,7 @@
 
         <!-- Title -->
 <div class="jumbotron">
-  <h1>Welcome to Steve's Articles.  </h1>
+  <h1>Future app.  </h1>
   <p>Awesome applications built with Rails!</p>
   <p></p>
 </div>
@@ -13,7 +13,25 @@
        
 
 
+    </div>
 
-</div>
+    <!-- Blog Sidebar Widgets Column -->
+    <div class="col-md-4">
+
+
+        <!-- Blog Categories Well -->
+
+
+        <!-- Side Widget Well -->
+        <div class="well">
+          <h4>Recent Posts</h4>
+            <% @articles.each do |a| %>
+             
+              <strong><%= link_to a.title, a %></strong>
+              <p><%= truncate(a.body) %></p>
+            <% end %>
+        </div>
+
+    </div>
 
 </div>

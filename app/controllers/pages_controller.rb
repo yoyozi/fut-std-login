@@ -1,6 +1,17 @@
 class PagesController < ApplicationController
 
-	  def show
-	  	render template: "pages/#{params[:page]}"
+
+	  def about
 	  end
+
+
+	  def contact
+	  end
+
+	  def home
+	  	@articles = Article.last(5)
+	  end
+
+
+
 end

@@ -350,7 +350,7 @@ Simple Form can be easily integrated to the Bootstrap. To do that you have to us
 NOW install the Devise views as devise uses simple form
 > rails g devise:views
 
-Edit the development.rb file in environment folder to cater for mailing to url
+Edit the development.rb file in environment folder for mail to localhost
 ```
 config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 ```
