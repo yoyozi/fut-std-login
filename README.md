@@ -355,12 +355,100 @@ Edit the development.rb file in environment folder for mail to localhost
 config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 ```
 
+**Adding fields to the User model: username, firstname etc**
+> rails g migration add_columns_to_users admin:boolean firstname:string lastname:string
+>  rake db:migrate
+Create a Registrations controller
+> vi ./app/controller/registrations_controller.rb 
+
+```
+class RegistrationsController < Devise::RegistrationsController
+
+  private
+
+  def sign_up_params
+    params.require(:user).permit(
+      :email, 
+      :password, 
+      :password_confirmation,
+      :username,
+      :firstname,
+      :lastname
+      )
+  end
+
+  def account_update_params
+    params.require(:user).permit(
+      :email, 
+      :password, 
+      :password_confirmation, 
+      :current_password,
+      :username,
+      :firstname,
+      :lastname
+      )
+  end
+end
+```
 
 
+> vi routes.rb 
+
+```
+Rails.application.routes.draw do
+
+  devise_for :users, :controllers => { registrations: 'registrations' }
+
+  root to: 'pages#home'
+  
+  get 'pages/contact'
+  get 'pages/about'
+
+end
+```
 
 
+> vi ./apps/views/devise/registrations/edit.html.erb
+ 
+```
+<h2>Edit <%= resource_name.to_s.humanize %></h2>
 
+<%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+  <%= f.error_notification %>
 
+  <div class="form-inputs">
+
+    <%= f.input :email, required: true, autofocus: true %>
+
+    <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+      <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
+    <% end %>
+
+    <%= f.input :username, required: true, autofocus: false %>
+
+    <%= f.input :firstname, required: false, autofocus: false %>
+
+    <%= f.input :lastname, required: false, autofocus: false %>
+
+    <%= f.input :current_password, hint: "we need your current password to confirm your changes", required: true %>
+
+    <%= f.input :password, autocomplete: "off", hint: "leave it blank if you don't want to change it", required: false %>
+
+    <%= f.input :password_confirmation, required: false %>
+
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit, "Update" %>
+  </div>
+<% end %>
+
+<h3>Cancel my account</h3>
+
+<p>Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
+
+<%= link_to "Back", :back %>
+```
 
 
 
