@@ -11,19 +11,20 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'unicorn'
-gem 'figaro'
+gem 'figaro', '~> 1.1', '>= 1.1.1'
 gem 'bootstrap-sass', '~> 3.3', '>= 3.3.6'
 gem 'font-awesome-sass', '~> 4.7.0'
-gem 'bootstrap-sass-extras'
-gem 'devise'
-gem 'simple_form'
+gem 'bootstrap-sass-extras', '~> 0.0.7'
+gem 'devise', '~> 4.2'
+gem 'simple_form', '~> 3.4'
+gem 'will_paginate', '~> 3.1', '>= 3.1.5'
 
 group :development, :test do
   gem 'byebug'
 end
 
 group :development do
-  gem 'mailcatcher'
+  gem 'mailcatcher', '~> 0.6.5'
   gem 'spring'
   gem 'capistrano-figaro-yml'
   gem 'web-console', '~> 2.0'

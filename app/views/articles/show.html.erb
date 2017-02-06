@@ -1,19 +1,43 @@
-<p id="notice"><%= notice %></p>
+<div class="row">
 
-<p>
-  <strong>Create by::</strong>
-  <%= @article.user.username %>
-</p>
+  
+    <div class="col-md-8">
 
-<p>
-  <strong>Title:</strong>
-  <%= @article.title %>
-</p>
 
-<p>
-  <strong>Body:</strong>
-  <%= @article.body %>
-</p>
+        <h1 style="font-size: 62.5px;"><%= @article.title %></h1>
 
-<%= link_to 'Edit', edit_article_path(@article) %> |
-<%= link_to 'Back', articles_path %>
+        <p class="lead">
+          <%= @article.user.username %>
+        </p>
+
+        <hr>
+        <p><span class="glyphicon glyphicon-time"></span> Was Posted: <%= time_ago_in_words(@article.created_at) %> ago
+        <hr>
+          <%= @article.body %>
+       
+        <hr>
+
+		<%= render @article.comments %>
+       
+        <%= render 'comments/form' %>  <br />
+
+        <%= link_to 'Edit', edit_article_path(@article) %> |
+		<%= link_to 'Back', articles_path %>
+
+    </div>
+
+
+    <!-- Blog Sidebar Widgets Column -->
+<div class="col-md-4">
+    <div class="well">
+          <h4>Recent articles</h4>
+            <% @last5.reverse_each do |a| %>
+              Created by: <%= a.user.username %><br />
+              <strong><%= link_to a.title, a %></strong>
+              <p><%= truncate(a.body) %></p>
+            <% end %>
+    </div>
+</div>
+
+
+

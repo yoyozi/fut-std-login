@@ -1,3 +1,3 @@
 git add -A
-git commit -m "Added mailing of contact"
+git commit -m "Added polish"
 git push origin master
