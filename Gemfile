@@ -23,6 +23,7 @@ group :development, :test do
 end
 
 group :development do
+  gem 'mailcatcher'
   gem 'spring'
   gem 'capistrano-figaro-yml'
   gem 'web-console', '~> 2.0'

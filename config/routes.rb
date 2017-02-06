@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   	resources :comments
   end
 
+  resources :contacts
+
   root to: 'pages#home'
   
   get 'pages/contact'
