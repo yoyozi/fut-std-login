@@ -1,5 +1,8 @@
 ## Loading this App to build on Digital Ocean
 
+Follows and built from fut-std
+No email: still to do
+
 **Clone the std app to your desktop as the name of the new application**
 > git clone https://github.com/yoyozi/reponame.git newreponame
 
@@ -288,7 +291,7 @@ gem 'bootstrap-sass-extras' gives you auto alerting and flash messaging so you d
 <p class="notice"><%= notice %></p>
 <p class="alert"><%= alert %></p>
 
-Change the User miration created to be
+Change the User migration created to be
 ```
 class DeviseCreateUsers < ActiveRecord::Migration
   def change
@@ -352,7 +355,25 @@ NOW install the Devise views as devise uses simple form
 
 Edit the development.rb file in environment folder for mail to localhost
 ```
-config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+ # Added to set dev url for mailer and for the mailer delivery failure notifications
+  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+  config.action_mailer.raise_delivery_errors = true
+
+
+
+  config.action_mailer.delivery_method = :smtp
+
+    config.action_mailer.smtp_settings = {
+    address: “smtp.gmail.com”,
+    port: 587,
+    domain: ENV[“GMAIL_DOMAIN”],
+    authentication: “plain”,
+    enable_starttls_auto: true,
+    user_name: ENV[“GMAIL_USERNAME”],
+    password: ENV[“GMAIL_PASSWORD”]
+  }
+
+end
 ```
 
 **Adding fields to the User model: username, firstname etc**
@@ -450,8 +471,10 @@ end
 <%= link_to "Back", :back %>
 ```
 
+**Creating comments on articles**
+rails g model comment body:text user:references article:references
 
-
+Devise mailer
 
 
 

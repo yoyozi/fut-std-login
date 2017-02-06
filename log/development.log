@@ -3215,3 +3215,811 @@ Processing by Devise::SessionsController#new as HTML
   Rendered layouts/_nav.html.erb (1.1ms)
   Rendered layouts/_foot.html.erb (0.5ms)
 Completed 200 OK in 355ms (Views: 341.6ms | ActiveRecord: 2.2ms)
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreateComments (20170205095125)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (26.1ms)[0m  [1mCREATE TABLE "comments" ("id" serial primary key, "body" text, "user_id" integer, "article_id" integer, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) [0m
+  [1m[35m (0.7ms)[0m  CREATE  INDEX  "index_comments_on_user_id" ON "comments"  ("user_id")
+  [1m[36m (0.7ms)[0m  [1mCREATE  INDEX  "index_comments_on_article_id" ON "comments"  ("article_id")[0m
+  [1m[35m (8.7ms)[0m  ALTER TABLE "comments" ADD CONSTRAINT "fk_rails_03de2dc08c"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+
+  [1m[36m (1.1ms)[0m  [1mALTER TABLE "comments" ADD CONSTRAINT "fk_rails_3bf61a60d3"
+FOREIGN KEY ("article_id")
+  REFERENCES "articles" ("id")
+[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20170205095125"]]
+  [1m[36m (15.2ms)[0m  [1mCOMMIT[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.2ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (1.8ms)[0m  [1mSELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
+FROM pg_constraint c
+JOIN pg_class t1 ON c.conrelid = t1.oid
+JOIN pg_class t2 ON c.confrelid = t2.oid
+JOIN pg_attribute a1 ON a1.attnum = c.conkey[1] AND a1.attrelid = t1.oid
+JOIN pg_attribute a2 ON a2.attnum = c.confkey[1] AND a2.attrelid = t2.oid
+JOIN pg_namespace t3 ON c.connamespace = t3.oid
+WHERE c.contype = 'f'
+  AND t1.relname = 'articles'
+  AND t3.nspname = ANY (current_schemas(false))
+ORDER BY c.conname
+[0m
+  [1m[35m (1.3ms)[0m  SELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
+FROM pg_constraint c
+JOIN pg_class t1 ON c.conrelid = t1.oid
+JOIN pg_class t2 ON c.confrelid = t2.oid
+JOIN pg_attribute a1 ON a1.attnum = c.conkey[1] AND a1.attrelid = t1.oid
+JOIN pg_attribute a2 ON a2.attnum = c.confkey[1] AND a2.attrelid = t2.oid
+JOIN pg_namespace t3 ON c.connamespace = t3.oid
+WHERE c.contype = 'f'
+  AND t1.relname = 'comments'
+  AND t3.nspname = ANY (current_schemas(false))
+ORDER BY c.conname
+
+  [1m[36m (1.3ms)[0m  [1mSELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
+FROM pg_constraint c
+JOIN pg_class t1 ON c.conrelid = t1.oid
+JOIN pg_class t2 ON c.confrelid = t2.oid
+JOIN pg_attribute a1 ON a1.attnum = c.conkey[1] AND a1.attrelid = t1.oid
+JOIN pg_attribute a2 ON a2.attnum = c.confkey[1] AND a2.attrelid = t2.oid
+JOIN pg_namespace t3 ON c.connamespace = t3.oid
+WHERE c.contype = 'f'
+  AND t1.relname = 'users'
+  AND t3.nspname = ANY (current_schemas(false))
+ORDER BY c.conname
+[0m
+
+
+Started GET "/" for ::1 at 2017-02-05 21:15:35 +0200
+
+PG::ConnectionBad (could not connect to server: Connection refused
+	Is the server running on host "localhost" (::1) and accepting
+	TCP/IP connections on port 5432?
+could not connect to server: Connection refused
+	Is the server running on host "localhost" (127.0.0.1) and accepting
+	TCP/IP connections on port 5432?
+):
+  activerecord (4.2.5) lib/active_record/connection_adapters/postgresql_adapter.rb:651:in `initialize'
+  activerecord (4.2.5) lib/active_record/connection_adapters/postgresql_adapter.rb:651:in `new'
+  activerecord (4.2.5) lib/active_record/connection_adapters/postgresql_adapter.rb:651:in `connect'
+  activerecord (4.2.5) lib/active_record/connection_adapters/postgresql_adapter.rb:242:in `initialize'
+  activerecord (4.2.5) lib/active_record/connection_adapters/postgresql_adapter.rb:44:in `new'
+  activerecord (4.2.5) lib/active_record/connection_adapters/postgresql_adapter.rb:44:in `postgresql_connection'
+  activerecord (4.2.5) lib/active_record/connection_adapters/abstract/connection_pool.rb:438:in `new_connection'
+  activerecord (4.2.5) lib/active_record/connection_adapters/abstract/connection_pool.rb:448:in `checkout_new_connection'
+  activerecord (4.2.5) lib/active_record/connection_adapters/abstract/connection_pool.rb:422:in `acquire_connection'
+  activerecord (4.2.5) lib/active_record/connection_adapters/abstract/connection_pool.rb:349:in `block in checkout'
+  /Users/craig/.rbenv/versions/2.3.1/lib/ruby/2.3.0/monitor.rb:214:in `mon_synchronize'
+  activerecord (4.2.5) lib/active_record/connection_adapters/abstract/connection_pool.rb:348:in `checkout'
+  activerecord (4.2.5) lib/active_record/connection_adapters/abstract/connection_pool.rb:263:in `block in connection'
+  /Users/craig/.rbenv/versions/2.3.1/lib/ruby/2.3.0/monitor.rb:214:in `mon_synchronize'
+  activerecord (4.2.5) lib/active_record/connection_adapters/abstract/connection_pool.rb:262:in `connection'
+  activerecord (4.2.5) lib/active_record/connection_adapters/abstract/connection_pool.rb:571:in `retrieve_connection'
+  activerecord (4.2.5) lib/active_record/connection_handling.rb:113:in `retrieve_connection'
+  activerecord (4.2.5) lib/active_record/connection_handling.rb:87:in `connection'
+  activerecord (4.2.5) lib/active_record/migration.rb:383:in `connection'
+  activerecord (4.2.5) lib/active_record/migration.rb:370:in `call'
+  actionpack (4.2.5) lib/action_dispatch/middleware/callbacks.rb:29:in `block in call'
+  activesupport (4.2.5) lib/active_support/callbacks.rb:88:in `__run_callbacks__'
+  activesupport (4.2.5) lib/active_support/callbacks.rb:778:in `_run_call_callbacks'
+  activesupport (4.2.5) lib/active_support/callbacks.rb:81:in `run_callbacks'
+  actionpack (4.2.5) lib/action_dispatch/middleware/callbacks.rb:27:in `call'
+  actionpack (4.2.5) lib/action_dispatch/middleware/reloader.rb:73:in `call'
+  actionpack (4.2.5) lib/action_dispatch/middleware/remote_ip.rb:78:in `call'
+  actionpack (4.2.5) lib/action_dispatch/middleware/debug_exceptions.rb:17:in `call'
+  web-console (2.3.0) lib/web_console/middleware.rb:28:in `block in call'
+  web-console (2.3.0) lib/web_console/middleware.rb:18:in `catch'
+  web-console (2.3.0) lib/web_console/middleware.rb:18:in `call'
+  actionpack (4.2.5) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  railties (4.2.5) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.2.5) lib/rails/rack/logger.rb:20:in `block in call'
+  activesupport (4.2.5) lib/active_support/tagged_logging.rb:68:in `block in tagged'
+  activesupport (4.2.5) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (4.2.5) lib/active_support/tagged_logging.rb:68:in `tagged'
+  railties (4.2.5) lib/rails/rack/logger.rb:20:in `call'
+  actionpack (4.2.5) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  rack (1.6.5) lib/rack/methodoverride.rb:22:in `call'
+  rack (1.6.5) lib/rack/runtime.rb:18:in `call'
+  activesupport (4.2.5) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+  rack (1.6.5) lib/rack/lock.rb:17:in `call'
+  actionpack (4.2.5) lib/action_dispatch/middleware/static.rb:116:in `call'
+  rack (1.6.5) lib/rack/sendfile.rb:113:in `call'
+  railties (4.2.5) lib/rails/engine.rb:518:in `call'
+  railties (4.2.5) lib/rails/application.rb:165:in `call'
+  rack (1.6.5) lib/rack/lock.rb:17:in `call'
+  rack (1.6.5) lib/rack/content_length.rb:15:in `call'
+  rack (1.6.5) lib/rack/handler/webrick.rb:88:in `service'
+  /Users/craig/.rbenv/versions/2.3.1/lib/ruby/2.3.0/webrick/httpserver.rb:140:in `service'
+  /Users/craig/.rbenv/versions/2.3.1/lib/ruby/2.3.0/webrick/httpserver.rb:96:in `run'
+  /Users/craig/.rbenv/versions/2.3.1/lib/ruby/2.3.0/webrick/server.rb:296:in `block in start_thread'
+
+
+  Rendered /Users/craig/.rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_source.erb (2.1ms)
+  Rendered /Users/craig/.rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (1.2ms)
+  Rendered /Users/craig/.rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.6ms)
+  Rendered /Users/craig/.rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (49.0ms)
+  Rendered /Users/craig/.rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/web-console-2.3.0/lib/web_console/templates/_markup.html.erb (0.3ms)
+  Rendered /Users/craig/.rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/web-console-2.3.0/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (0.3ms)
+  Rendered /Users/craig/.rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/web-console-2.3.0/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (0.3ms)
+  Rendered /Users/craig/.rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/web-console-2.3.0/lib/web_console/templates/style.css.erb within layouts/inlined_string (0.3ms)
+  Rendered /Users/craig/.rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/web-console-2.3.0/lib/web_console/templates/console.js.erb within layouts/javascript (54.0ms)
+  Rendered /Users/craig/.rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/web-console-2.3.0/lib/web_console/templates/main.js.erb within layouts/javascript (0.3ms)
+  Rendered /Users/craig/.rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/web-console-2.3.0/lib/web_console/templates/error_page.js.erb within layouts/javascript (0.3ms)
+  Rendered /Users/craig/.rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/web-console-2.3.0/lib/web_console/templates/index.html.erb (112.0ms)
+
+
+Started GET "/" for ::1 at 2017-02-05 21:24:38 +0200
+
+PG::ConnectionBad (could not connect to server: Connection refused
+	Is the server running on host "localhost" (::1) and accepting
+	TCP/IP connections on port 5432?
+could not connect to server: Connection refused
+	Is the server running on host "localhost" (127.0.0.1) and accepting
+	TCP/IP connections on port 5432?
+):
+  activerecord (4.2.5) lib/active_record/connection_adapters/postgresql_adapter.rb:651:in `initialize'
+  activerecord (4.2.5) lib/active_record/connection_adapters/postgresql_adapter.rb:651:in `new'
+  activerecord (4.2.5) lib/active_record/connection_adapters/postgresql_adapter.rb:651:in `connect'
+  activerecord (4.2.5) lib/active_record/connection_adapters/postgresql_adapter.rb:242:in `initialize'
+  activerecord (4.2.5) lib/active_record/connection_adapters/postgresql_adapter.rb:44:in `new'
+  activerecord (4.2.5) lib/active_record/connection_adapters/postgresql_adapter.rb:44:in `postgresql_connection'
+  activerecord (4.2.5) lib/active_record/connection_adapters/abstract/connection_pool.rb:438:in `new_connection'
+  activerecord (4.2.5) lib/active_record/connection_adapters/abstract/connection_pool.rb:448:in `checkout_new_connection'
+  activerecord (4.2.5) lib/active_record/connection_adapters/abstract/connection_pool.rb:422:in `acquire_connection'
+  activerecord (4.2.5) lib/active_record/connection_adapters/abstract/connection_pool.rb:349:in `block in checkout'
+  /Users/craig/.rbenv/versions/2.3.1/lib/ruby/2.3.0/monitor.rb:214:in `mon_synchronize'
+  activerecord (4.2.5) lib/active_record/connection_adapters/abstract/connection_pool.rb:348:in `checkout'
+  activerecord (4.2.5) lib/active_record/connection_adapters/abstract/connection_pool.rb:263:in `block in connection'
+  /Users/craig/.rbenv/versions/2.3.1/lib/ruby/2.3.0/monitor.rb:214:in `mon_synchronize'
+  activerecord (4.2.5) lib/active_record/connection_adapters/abstract/connection_pool.rb:262:in `connection'
+  activerecord (4.2.5) lib/active_record/connection_adapters/abstract/connection_pool.rb:571:in `retrieve_connection'
+  activerecord (4.2.5) lib/active_record/connection_handling.rb:113:in `retrieve_connection'
+  activerecord (4.2.5) lib/active_record/connection_handling.rb:87:in `connection'
+  activerecord (4.2.5) lib/active_record/migration.rb:383:in `connection'
+  activerecord (4.2.5) lib/active_record/migration.rb:370:in `call'
+  actionpack (4.2.5) lib/action_dispatch/middleware/callbacks.rb:29:in `block in call'
+  activesupport (4.2.5) lib/active_support/callbacks.rb:88:in `__run_callbacks__'
+  activesupport (4.2.5) lib/active_support/callbacks.rb:778:in `_run_call_callbacks'
+  activesupport (4.2.5) lib/active_support/callbacks.rb:81:in `run_callbacks'
+  actionpack (4.2.5) lib/action_dispatch/middleware/callbacks.rb:27:in `call'
+  actionpack (4.2.5) lib/action_dispatch/middleware/reloader.rb:73:in `call'
+  actionpack (4.2.5) lib/action_dispatch/middleware/remote_ip.rb:78:in `call'
+  actionpack (4.2.5) lib/action_dispatch/middleware/debug_exceptions.rb:17:in `call'
+  web-console (2.3.0) lib/web_console/middleware.rb:28:in `block in call'
+  web-console (2.3.0) lib/web_console/middleware.rb:18:in `catch'
+  web-console (2.3.0) lib/web_console/middleware.rb:18:in `call'
+  actionpack (4.2.5) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  railties (4.2.5) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.2.5) lib/rails/rack/logger.rb:20:in `block in call'
+  activesupport (4.2.5) lib/active_support/tagged_logging.rb:68:in `block in tagged'
+  activesupport (4.2.5) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (4.2.5) lib/active_support/tagged_logging.rb:68:in `tagged'
+  railties (4.2.5) lib/rails/rack/logger.rb:20:in `call'
+  actionpack (4.2.5) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  rack (1.6.5) lib/rack/methodoverride.rb:22:in `call'
+  rack (1.6.5) lib/rack/runtime.rb:18:in `call'
+  activesupport (4.2.5) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+  rack (1.6.5) lib/rack/lock.rb:17:in `call'
+  actionpack (4.2.5) lib/action_dispatch/middleware/static.rb:116:in `call'
+  rack (1.6.5) lib/rack/sendfile.rb:113:in `call'
+  railties (4.2.5) lib/rails/engine.rb:518:in `call'
+  railties (4.2.5) lib/rails/application.rb:165:in `call'
+  rack (1.6.5) lib/rack/lock.rb:17:in `call'
+  rack (1.6.5) lib/rack/content_length.rb:15:in `call'
+  rack (1.6.5) lib/rack/handler/webrick.rb:88:in `service'
+  /Users/craig/.rbenv/versions/2.3.1/lib/ruby/2.3.0/webrick/httpserver.rb:140:in `service'
+  /Users/craig/.rbenv/versions/2.3.1/lib/ruby/2.3.0/webrick/httpserver.rb:96:in `run'
+  /Users/craig/.rbenv/versions/2.3.1/lib/ruby/2.3.0/webrick/server.rb:296:in `block in start_thread'
+
+
+  Rendered /Users/craig/.rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_source.erb (2.0ms)
+  Rendered /Users/craig/.rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (1.0ms)
+  Rendered /Users/craig/.rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.6ms)
+  Rendered /Users/craig/.rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (45.1ms)
+  Rendered /Users/craig/.rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/web-console-2.3.0/lib/web_console/templates/_markup.html.erb (0.3ms)
+  Rendered /Users/craig/.rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/web-console-2.3.0/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (0.2ms)
+  Rendered /Users/craig/.rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/web-console-2.3.0/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (0.3ms)
+  Rendered /Users/craig/.rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/web-console-2.3.0/lib/web_console/templates/style.css.erb within layouts/inlined_string (0.2ms)
+  Rendered /Users/craig/.rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/web-console-2.3.0/lib/web_console/templates/console.js.erb within layouts/javascript (46.0ms)
+  Rendered /Users/craig/.rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/web-console-2.3.0/lib/web_console/templates/main.js.erb within layouts/javascript (0.2ms)
+  Rendered /Users/craig/.rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/web-console-2.3.0/lib/web_console/templates/error_page.js.erb within layouts/javascript (0.3ms)
+  Rendered /Users/craig/.rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/web-console-2.3.0/lib/web_console/templates/index.html.erb (100.2ms)
+
+
+Started GET "/" for ::1 at 2017-02-05 21:26:02 +0200
+
+PG::ConnectionBad (could not connect to server: Connection refused
+	Is the server running on host "localhost" (::1) and accepting
+	TCP/IP connections on port 5432?
+could not connect to server: Connection refused
+	Is the server running on host "localhost" (127.0.0.1) and accepting
+	TCP/IP connections on port 5432?
+):
+  activerecord (4.2.5) lib/active_record/connection_adapters/postgresql_adapter.rb:651:in `initialize'
+  activerecord (4.2.5) lib/active_record/connection_adapters/postgresql_adapter.rb:651:in `new'
+  activerecord (4.2.5) lib/active_record/connection_adapters/postgresql_adapter.rb:651:in `connect'
+  activerecord (4.2.5) lib/active_record/connection_adapters/postgresql_adapter.rb:242:in `initialize'
+  activerecord (4.2.5) lib/active_record/connection_adapters/postgresql_adapter.rb:44:in `new'
+  activerecord (4.2.5) lib/active_record/connection_adapters/postgresql_adapter.rb:44:in `postgresql_connection'
+  activerecord (4.2.5) lib/active_record/connection_adapters/abstract/connection_pool.rb:438:in `new_connection'
+  activerecord (4.2.5) lib/active_record/connection_adapters/abstract/connection_pool.rb:448:in `checkout_new_connection'
+  activerecord (4.2.5) lib/active_record/connection_adapters/abstract/connection_pool.rb:422:in `acquire_connection'
+  activerecord (4.2.5) lib/active_record/connection_adapters/abstract/connection_pool.rb:349:in `block in checkout'
+  /Users/craig/.rbenv/versions/2.3.1/lib/ruby/2.3.0/monitor.rb:214:in `mon_synchronize'
+  activerecord (4.2.5) lib/active_record/connection_adapters/abstract/connection_pool.rb:348:in `checkout'
+  activerecord (4.2.5) lib/active_record/connection_adapters/abstract/connection_pool.rb:263:in `block in connection'
+  /Users/craig/.rbenv/versions/2.3.1/lib/ruby/2.3.0/monitor.rb:214:in `mon_synchronize'
+  activerecord (4.2.5) lib/active_record/connection_adapters/abstract/connection_pool.rb:262:in `connection'
+  activerecord (4.2.5) lib/active_record/connection_adapters/abstract/connection_pool.rb:571:in `retrieve_connection'
+  activerecord (4.2.5) lib/active_record/connection_handling.rb:113:in `retrieve_connection'
+  activerecord (4.2.5) lib/active_record/connection_handling.rb:87:in `connection'
+  activerecord (4.2.5) lib/active_record/migration.rb:383:in `connection'
+  activerecord (4.2.5) lib/active_record/migration.rb:370:in `call'
+  actionpack (4.2.5) lib/action_dispatch/middleware/callbacks.rb:29:in `block in call'
+  activesupport (4.2.5) lib/active_support/callbacks.rb:88:in `__run_callbacks__'
+  activesupport (4.2.5) lib/active_support/callbacks.rb:778:in `_run_call_callbacks'
+  activesupport (4.2.5) lib/active_support/callbacks.rb:81:in `run_callbacks'
+  actionpack (4.2.5) lib/action_dispatch/middleware/callbacks.rb:27:in `call'
+  actionpack (4.2.5) lib/action_dispatch/middleware/reloader.rb:73:in `call'
+  actionpack (4.2.5) lib/action_dispatch/middleware/remote_ip.rb:78:in `call'
+  actionpack (4.2.5) lib/action_dispatch/middleware/debug_exceptions.rb:17:in `call'
+  web-console (2.3.0) lib/web_console/middleware.rb:28:in `block in call'
+  web-console (2.3.0) lib/web_console/middleware.rb:18:in `catch'
+  web-console (2.3.0) lib/web_console/middleware.rb:18:in `call'
+  actionpack (4.2.5) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  railties (4.2.5) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.2.5) lib/rails/rack/logger.rb:20:in `block in call'
+  activesupport (4.2.5) lib/active_support/tagged_logging.rb:68:in `block in tagged'
+  activesupport (4.2.5) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (4.2.5) lib/active_support/tagged_logging.rb:68:in `tagged'
+  railties (4.2.5) lib/rails/rack/logger.rb:20:in `call'
+  actionpack (4.2.5) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  rack (1.6.5) lib/rack/methodoverride.rb:22:in `call'
+  rack (1.6.5) lib/rack/runtime.rb:18:in `call'
+  activesupport (4.2.5) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+  rack (1.6.5) lib/rack/lock.rb:17:in `call'
+  actionpack (4.2.5) lib/action_dispatch/middleware/static.rb:116:in `call'
+  rack (1.6.5) lib/rack/sendfile.rb:113:in `call'
+  railties (4.2.5) lib/rails/engine.rb:518:in `call'
+  railties (4.2.5) lib/rails/application.rb:165:in `call'
+  rack (1.6.5) lib/rack/lock.rb:17:in `call'
+  rack (1.6.5) lib/rack/content_length.rb:15:in `call'
+  rack (1.6.5) lib/rack/handler/webrick.rb:88:in `service'
+  /Users/craig/.rbenv/versions/2.3.1/lib/ruby/2.3.0/webrick/httpserver.rb:140:in `service'
+  /Users/craig/.rbenv/versions/2.3.1/lib/ruby/2.3.0/webrick/httpserver.rb:96:in `run'
+  /Users/craig/.rbenv/versions/2.3.1/lib/ruby/2.3.0/webrick/server.rb:296:in `block in start_thread'
+
+
+  Rendered /Users/craig/.rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_source.erb (2.0ms)
+  Rendered /Users/craig/.rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (1.4ms)
+  Rendered /Users/craig/.rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.5ms)
+  Rendered /Users/craig/.rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (43.2ms)
+  Rendered /Users/craig/.rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/web-console-2.3.0/lib/web_console/templates/_markup.html.erb (0.2ms)
+  Rendered /Users/craig/.rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/web-console-2.3.0/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (0.2ms)
+  Rendered /Users/craig/.rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/web-console-2.3.0/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (0.2ms)
+  Rendered /Users/craig/.rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/web-console-2.3.0/lib/web_console/templates/style.css.erb within layouts/inlined_string (0.2ms)
+  Rendered /Users/craig/.rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/web-console-2.3.0/lib/web_console/templates/console.js.erb within layouts/javascript (38.0ms)
+  Rendered /Users/craig/.rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/web-console-2.3.0/lib/web_console/templates/main.js.erb within layouts/javascript (0.2ms)
+  Rendered /Users/craig/.rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/web-console-2.3.0/lib/web_console/templates/error_page.js.erb within layouts/javascript (0.2ms)
+  Rendered /Users/craig/.rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/web-console-2.3.0/lib/web_console/templates/index.html.erb (84.8ms)
+
+
+Started GET "/" for ::1 at 2017-02-05 21:26:03 +0200
+
+PG::ConnectionBad (could not connect to server: Connection refused
+	Is the server running on host "localhost" (::1) and accepting
+	TCP/IP connections on port 5432?
+could not connect to server: Connection refused
+	Is the server running on host "localhost" (127.0.0.1) and accepting
+	TCP/IP connections on port 5432?
+):
+  activerecord (4.2.5) lib/active_record/connection_adapters/postgresql_adapter.rb:651:in `initialize'
+  activerecord (4.2.5) lib/active_record/connection_adapters/postgresql_adapter.rb:651:in `new'
+  activerecord (4.2.5) lib/active_record/connection_adapters/postgresql_adapter.rb:651:in `connect'
+  activerecord (4.2.5) lib/active_record/connection_adapters/postgresql_adapter.rb:242:in `initialize'
+  activerecord (4.2.5) lib/active_record/connection_adapters/postgresql_adapter.rb:44:in `new'
+  activerecord (4.2.5) lib/active_record/connection_adapters/postgresql_adapter.rb:44:in `postgresql_connection'
+  activerecord (4.2.5) lib/active_record/connection_adapters/abstract/connection_pool.rb:438:in `new_connection'
+  activerecord (4.2.5) lib/active_record/connection_adapters/abstract/connection_pool.rb:448:in `checkout_new_connection'
+  activerecord (4.2.5) lib/active_record/connection_adapters/abstract/connection_pool.rb:422:in `acquire_connection'
+  activerecord (4.2.5) lib/active_record/connection_adapters/abstract/connection_pool.rb:349:in `block in checkout'
+  /Users/craig/.rbenv/versions/2.3.1/lib/ruby/2.3.0/monitor.rb:214:in `mon_synchronize'
+  activerecord (4.2.5) lib/active_record/connection_adapters/abstract/connection_pool.rb:348:in `checkout'
+  activerecord (4.2.5) lib/active_record/connection_adapters/abstract/connection_pool.rb:263:in `block in connection'
+  /Users/craig/.rbenv/versions/2.3.1/lib/ruby/2.3.0/monitor.rb:214:in `mon_synchronize'
+  activerecord (4.2.5) lib/active_record/connection_adapters/abstract/connection_pool.rb:262:in `connection'
+  activerecord (4.2.5) lib/active_record/connection_adapters/abstract/connection_pool.rb:571:in `retrieve_connection'
+  activerecord (4.2.5) lib/active_record/connection_handling.rb:113:in `retrieve_connection'
+  activerecord (4.2.5) lib/active_record/connection_handling.rb:87:in `connection'
+  activerecord (4.2.5) lib/active_record/migration.rb:383:in `connection'
+  activerecord (4.2.5) lib/active_record/migration.rb:370:in `call'
+  actionpack (4.2.5) lib/action_dispatch/middleware/callbacks.rb:29:in `block in call'
+  activesupport (4.2.5) lib/active_support/callbacks.rb:88:in `__run_callbacks__'
+  activesupport (4.2.5) lib/active_support/callbacks.rb:778:in `_run_call_callbacks'
+  activesupport (4.2.5) lib/active_support/callbacks.rb:81:in `run_callbacks'
+  actionpack (4.2.5) lib/action_dispatch/middleware/callbacks.rb:27:in `call'
+  actionpack (4.2.5) lib/action_dispatch/middleware/reloader.rb:73:in `call'
+  actionpack (4.2.5) lib/action_dispatch/middleware/remote_ip.rb:78:in `call'
+  actionpack (4.2.5) lib/action_dispatch/middleware/debug_exceptions.rb:17:in `call'
+  web-console (2.3.0) lib/web_console/middleware.rb:28:in `block in call'
+  web-console (2.3.0) lib/web_console/middleware.rb:18:in `catch'
+  web-console (2.3.0) lib/web_console/middleware.rb:18:in `call'
+  actionpack (4.2.5) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  railties (4.2.5) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.2.5) lib/rails/rack/logger.rb:20:in `block in call'
+  activesupport (4.2.5) lib/active_support/tagged_logging.rb:68:in `block in tagged'
+  activesupport (4.2.5) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (4.2.5) lib/active_support/tagged_logging.rb:68:in `tagged'
+  railties (4.2.5) lib/rails/rack/logger.rb:20:in `call'
+  actionpack (4.2.5) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  rack (1.6.5) lib/rack/methodoverride.rb:22:in `call'
+  rack (1.6.5) lib/rack/runtime.rb:18:in `call'
+  activesupport (4.2.5) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+  rack (1.6.5) lib/rack/lock.rb:17:in `call'
+  actionpack (4.2.5) lib/action_dispatch/middleware/static.rb:116:in `call'
+  rack (1.6.5) lib/rack/sendfile.rb:113:in `call'
+  railties (4.2.5) lib/rails/engine.rb:518:in `call'
+  railties (4.2.5) lib/rails/application.rb:165:in `call'
+  rack (1.6.5) lib/rack/lock.rb:17:in `call'
+  rack (1.6.5) lib/rack/content_length.rb:15:in `call'
+  rack (1.6.5) lib/rack/handler/webrick.rb:88:in `service'
+  /Users/craig/.rbenv/versions/2.3.1/lib/ruby/2.3.0/webrick/httpserver.rb:140:in `service'
+  /Users/craig/.rbenv/versions/2.3.1/lib/ruby/2.3.0/webrick/httpserver.rb:96:in `run'
+  /Users/craig/.rbenv/versions/2.3.1/lib/ruby/2.3.0/webrick/server.rb:296:in `block in start_thread'
+
+
+  Rendered /Users/craig/.rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_source.erb (2.4ms)
+  Rendered /Users/craig/.rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (1.1ms)
+  Rendered /Users/craig/.rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.5ms)
+  Rendered /Users/craig/.rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (44.0ms)
+  Rendered /Users/craig/.rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/web-console-2.3.0/lib/web_console/templates/_markup.html.erb (0.3ms)
+  Rendered /Users/craig/.rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/web-console-2.3.0/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (0.2ms)
+  Rendered /Users/craig/.rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/web-console-2.3.0/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (0.3ms)
+  Rendered /Users/craig/.rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/web-console-2.3.0/lib/web_console/templates/style.css.erb within layouts/inlined_string (0.3ms)
+  Rendered /Users/craig/.rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/web-console-2.3.0/lib/web_console/templates/console.js.erb within layouts/javascript (39.9ms)
+  Rendered /Users/craig/.rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/web-console-2.3.0/lib/web_console/templates/main.js.erb within layouts/javascript (0.2ms)
+  Rendered /Users/craig/.rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/web-console-2.3.0/lib/web_console/templates/error_page.js.erb within layouts/javascript (0.4ms)
+  Rendered /Users/craig/.rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/web-console-2.3.0/lib/web_console/templates/index.html.erb (90.5ms)
+
+
+Started GET "/" for ::1 at 2017-02-05 21:26:04 +0200
+
+PG::ConnectionBad (could not connect to server: Connection refused
+	Is the server running on host "localhost" (::1) and accepting
+	TCP/IP connections on port 5432?
+could not connect to server: Connection refused
+	Is the server running on host "localhost" (127.0.0.1) and accepting
+	TCP/IP connections on port 5432?
+):
+  activerecord (4.2.5) lib/active_record/connection_adapters/postgresql_adapter.rb:651:in `initialize'
+  activerecord (4.2.5) lib/active_record/connection_adapters/postgresql_adapter.rb:651:in `new'
+  activerecord (4.2.5) lib/active_record/connection_adapters/postgresql_adapter.rb:651:in `connect'
+  activerecord (4.2.5) lib/active_record/connection_adapters/postgresql_adapter.rb:242:in `initialize'
+  activerecord (4.2.5) lib/active_record/connection_adapters/postgresql_adapter.rb:44:in `new'
+  activerecord (4.2.5) lib/active_record/connection_adapters/postgresql_adapter.rb:44:in `postgresql_connection'
+  activerecord (4.2.5) lib/active_record/connection_adapters/abstract/connection_pool.rb:438:in `new_connection'
+  activerecord (4.2.5) lib/active_record/connection_adapters/abstract/connection_pool.rb:448:in `checkout_new_connection'
+  activerecord (4.2.5) lib/active_record/connection_adapters/abstract/connection_pool.rb:422:in `acquire_connection'
+  activerecord (4.2.5) lib/active_record/connection_adapters/abstract/connection_pool.rb:349:in `block in checkout'
+  /Users/craig/.rbenv/versions/2.3.1/lib/ruby/2.3.0/monitor.rb:214:in `mon_synchronize'
+  activerecord (4.2.5) lib/active_record/connection_adapters/abstract/connection_pool.rb:348:in `checkout'
+  activerecord (4.2.5) lib/active_record/connection_adapters/abstract/connection_pool.rb:263:in `block in connection'
+  /Users/craig/.rbenv/versions/2.3.1/lib/ruby/2.3.0/monitor.rb:214:in `mon_synchronize'
+  activerecord (4.2.5) lib/active_record/connection_adapters/abstract/connection_pool.rb:262:in `connection'
+  activerecord (4.2.5) lib/active_record/connection_adapters/abstract/connection_pool.rb:571:in `retrieve_connection'
+  activerecord (4.2.5) lib/active_record/connection_handling.rb:113:in `retrieve_connection'
+  activerecord (4.2.5) lib/active_record/connection_handling.rb:87:in `connection'
+  activerecord (4.2.5) lib/active_record/migration.rb:383:in `connection'
+  activerecord (4.2.5) lib/active_record/migration.rb:370:in `call'
+  actionpack (4.2.5) lib/action_dispatch/middleware/callbacks.rb:29:in `block in call'
+  activesupport (4.2.5) lib/active_support/callbacks.rb:88:in `__run_callbacks__'
+  activesupport (4.2.5) lib/active_support/callbacks.rb:778:in `_run_call_callbacks'
+  activesupport (4.2.5) lib/active_support/callbacks.rb:81:in `run_callbacks'
+  actionpack (4.2.5) lib/action_dispatch/middleware/callbacks.rb:27:in `call'
+  actionpack (4.2.5) lib/action_dispatch/middleware/reloader.rb:73:in `call'
+  actionpack (4.2.5) lib/action_dispatch/middleware/remote_ip.rb:78:in `call'
+  actionpack (4.2.5) lib/action_dispatch/middleware/debug_exceptions.rb:17:in `call'
+  web-console (2.3.0) lib/web_console/middleware.rb:28:in `block in call'
+  web-console (2.3.0) lib/web_console/middleware.rb:18:in `catch'
+  web-console (2.3.0) lib/web_console/middleware.rb:18:in `call'
+  actionpack (4.2.5) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  railties (4.2.5) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.2.5) lib/rails/rack/logger.rb:20:in `block in call'
+  activesupport (4.2.5) lib/active_support/tagged_logging.rb:68:in `block in tagged'
+  activesupport (4.2.5) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (4.2.5) lib/active_support/tagged_logging.rb:68:in `tagged'
+  railties (4.2.5) lib/rails/rack/logger.rb:20:in `call'
+  actionpack (4.2.5) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  rack (1.6.5) lib/rack/methodoverride.rb:22:in `call'
+  rack (1.6.5) lib/rack/runtime.rb:18:in `call'
+  activesupport (4.2.5) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+  rack (1.6.5) lib/rack/lock.rb:17:in `call'
+  actionpack (4.2.5) lib/action_dispatch/middleware/static.rb:116:in `call'
+  rack (1.6.5) lib/rack/sendfile.rb:113:in `call'
+  railties (4.2.5) lib/rails/engine.rb:518:in `call'
+  railties (4.2.5) lib/rails/application.rb:165:in `call'
+  rack (1.6.5) lib/rack/lock.rb:17:in `call'
+  rack (1.6.5) lib/rack/content_length.rb:15:in `call'
+  rack (1.6.5) lib/rack/handler/webrick.rb:88:in `service'
+  /Users/craig/.rbenv/versions/2.3.1/lib/ruby/2.3.0/webrick/httpserver.rb:140:in `service'
+  /Users/craig/.rbenv/versions/2.3.1/lib/ruby/2.3.0/webrick/httpserver.rb:96:in `run'
+  /Users/craig/.rbenv/versions/2.3.1/lib/ruby/2.3.0/webrick/server.rb:296:in `block in start_thread'
+
+
+  Rendered /Users/craig/.rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_source.erb (2.7ms)
+  Rendered /Users/craig/.rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (1.6ms)
+  Rendered /Users/craig/.rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.5ms)
+  Rendered /Users/craig/.rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (45.0ms)
+  Rendered /Users/craig/.rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/web-console-2.3.0/lib/web_console/templates/_markup.html.erb (0.3ms)
+  Rendered /Users/craig/.rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/web-console-2.3.0/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (0.2ms)
+  Rendered /Users/craig/.rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/web-console-2.3.0/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (0.3ms)
+  Rendered /Users/craig/.rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/web-console-2.3.0/lib/web_console/templates/style.css.erb within layouts/inlined_string (0.3ms)
+  Rendered /Users/craig/.rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/web-console-2.3.0/lib/web_console/templates/console.js.erb within layouts/javascript (40.6ms)
+  Rendered /Users/craig/.rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/web-console-2.3.0/lib/web_console/templates/main.js.erb within layouts/javascript (0.2ms)
+  Rendered /Users/craig/.rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/web-console-2.3.0/lib/web_console/templates/error_page.js.erb within layouts/javascript (0.3ms)
+  Rendered /Users/craig/.rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/web-console-2.3.0/lib/web_console/templates/index.html.erb (89.9ms)
+
+
+Started GET "/" for ::1 at 2017-02-05 21:26:05 +0200
+
+PG::ConnectionBad (could not connect to server: Connection refused
+	Is the server running on host "localhost" (::1) and accepting
+	TCP/IP connections on port 5432?
+could not connect to server: Connection refused
+	Is the server running on host "localhost" (127.0.0.1) and accepting
+	TCP/IP connections on port 5432?
+):
+  activerecord (4.2.5) lib/active_record/connection_adapters/postgresql_adapter.rb:651:in `initialize'
+  activerecord (4.2.5) lib/active_record/connection_adapters/postgresql_adapter.rb:651:in `new'
+  activerecord (4.2.5) lib/active_record/connection_adapters/postgresql_adapter.rb:651:in `connect'
+  activerecord (4.2.5) lib/active_record/connection_adapters/postgresql_adapter.rb:242:in `initialize'
+  activerecord (4.2.5) lib/active_record/connection_adapters/postgresql_adapter.rb:44:in `new'
+  activerecord (4.2.5) lib/active_record/connection_adapters/postgresql_adapter.rb:44:in `postgresql_connection'
+  activerecord (4.2.5) lib/active_record/connection_adapters/abstract/connection_pool.rb:438:in `new_connection'
+  activerecord (4.2.5) lib/active_record/connection_adapters/abstract/connection_pool.rb:448:in `checkout_new_connection'
+  activerecord (4.2.5) lib/active_record/connection_adapters/abstract/connection_pool.rb:422:in `acquire_connection'
+  activerecord (4.2.5) lib/active_record/connection_adapters/abstract/connection_pool.rb:349:in `block in checkout'
+  /Users/craig/.rbenv/versions/2.3.1/lib/ruby/2.3.0/monitor.rb:214:in `mon_synchronize'
+  activerecord (4.2.5) lib/active_record/connection_adapters/abstract/connection_pool.rb:348:in `checkout'
+  activerecord (4.2.5) lib/active_record/connection_adapters/abstract/connection_pool.rb:263:in `block in connection'
+  /Users/craig/.rbenv/versions/2.3.1/lib/ruby/2.3.0/monitor.rb:214:in `mon_synchronize'
+  activerecord (4.2.5) lib/active_record/connection_adapters/abstract/connection_pool.rb:262:in `connection'
+  activerecord (4.2.5) lib/active_record/connection_adapters/abstract/connection_pool.rb:571:in `retrieve_connection'
+  activerecord (4.2.5) lib/active_record/connection_handling.rb:113:in `retrieve_connection'
+  activerecord (4.2.5) lib/active_record/connection_handling.rb:87:in `connection'
+  activerecord (4.2.5) lib/active_record/migration.rb:383:in `connection'
+  activerecord (4.2.5) lib/active_record/migration.rb:370:in `call'
+  actionpack (4.2.5) lib/action_dispatch/middleware/callbacks.rb:29:in `block in call'
+  activesupport (4.2.5) lib/active_support/callbacks.rb:88:in `__run_callbacks__'
+  activesupport (4.2.5) lib/active_support/callbacks.rb:778:in `_run_call_callbacks'
+  activesupport (4.2.5) lib/active_support/callbacks.rb:81:in `run_callbacks'
+  actionpack (4.2.5) lib/action_dispatch/middleware/callbacks.rb:27:in `call'
+  actionpack (4.2.5) lib/action_dispatch/middleware/reloader.rb:73:in `call'
+  actionpack (4.2.5) lib/action_dispatch/middleware/remote_ip.rb:78:in `call'
+  actionpack (4.2.5) lib/action_dispatch/middleware/debug_exceptions.rb:17:in `call'
+  web-console (2.3.0) lib/web_console/middleware.rb:28:in `block in call'
+  web-console (2.3.0) lib/web_console/middleware.rb:18:in `catch'
+  web-console (2.3.0) lib/web_console/middleware.rb:18:in `call'
+  actionpack (4.2.5) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  railties (4.2.5) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.2.5) lib/rails/rack/logger.rb:20:in `block in call'
+  activesupport (4.2.5) lib/active_support/tagged_logging.rb:68:in `block in tagged'
+  activesupport (4.2.5) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (4.2.5) lib/active_support/tagged_logging.rb:68:in `tagged'
+  railties (4.2.5) lib/rails/rack/logger.rb:20:in `call'
+  actionpack (4.2.5) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  rack (1.6.5) lib/rack/methodoverride.rb:22:in `call'
+  rack (1.6.5) lib/rack/runtime.rb:18:in `call'
+  activesupport (4.2.5) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+  rack (1.6.5) lib/rack/lock.rb:17:in `call'
+  actionpack (4.2.5) lib/action_dispatch/middleware/static.rb:116:in `call'
+  rack (1.6.5) lib/rack/sendfile.rb:113:in `call'
+  railties (4.2.5) lib/rails/engine.rb:518:in `call'
+  railties (4.2.5) lib/rails/application.rb:165:in `call'
+  rack (1.6.5) lib/rack/lock.rb:17:in `call'
+  rack (1.6.5) lib/rack/content_length.rb:15:in `call'
+  rack (1.6.5) lib/rack/handler/webrick.rb:88:in `service'
+  /Users/craig/.rbenv/versions/2.3.1/lib/ruby/2.3.0/webrick/httpserver.rb:140:in `service'
+  /Users/craig/.rbenv/versions/2.3.1/lib/ruby/2.3.0/webrick/httpserver.rb:96:in `run'
+  /Users/craig/.rbenv/versions/2.3.1/lib/ruby/2.3.0/webrick/server.rb:296:in `block in start_thread'
+
+
+  Rendered /Users/craig/.rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_source.erb (2.1ms)
+  Rendered /Users/craig/.rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (1.1ms)
+  Rendered /Users/craig/.rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.6ms)
+  Rendered /Users/craig/.rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (44.8ms)
+  Rendered /Users/craig/.rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/web-console-2.3.0/lib/web_console/templates/_markup.html.erb (0.3ms)
+  Rendered /Users/craig/.rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/web-console-2.3.0/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (0.2ms)
+  Rendered /Users/craig/.rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/web-console-2.3.0/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (0.3ms)
+  Rendered /Users/craig/.rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/web-console-2.3.0/lib/web_console/templates/style.css.erb within layouts/inlined_string (0.3ms)
+  Rendered /Users/craig/.rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/web-console-2.3.0/lib/web_console/templates/console.js.erb within layouts/javascript (41.4ms)
+  Rendered /Users/craig/.rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/web-console-2.3.0/lib/web_console/templates/main.js.erb within layouts/javascript (0.1ms)
+  Rendered /Users/craig/.rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/web-console-2.3.0/lib/web_console/templates/error_page.js.erb within layouts/javascript (0.4ms)
+  Rendered /Users/craig/.rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/web-console-2.3.0/lib/web_console/templates/index.html.erb (89.6ms)
+
+
+Started GET "/" for ::1 at 2017-02-05 21:28:04 +0200
+
+PG::ConnectionBad (could not connect to server: Connection refused
+	Is the server running on host "localhost" (::1) and accepting
+	TCP/IP connections on port 5432?
+could not connect to server: Connection refused
+	Is the server running on host "localhost" (127.0.0.1) and accepting
+	TCP/IP connections on port 5432?
+):
+  activerecord (4.2.5) lib/active_record/connection_adapters/postgresql_adapter.rb:651:in `initialize'
+  activerecord (4.2.5) lib/active_record/connection_adapters/postgresql_adapter.rb:651:in `new'
+  activerecord (4.2.5) lib/active_record/connection_adapters/postgresql_adapter.rb:651:in `connect'
+  activerecord (4.2.5) lib/active_record/connection_adapters/postgresql_adapter.rb:242:in `initialize'
+  activerecord (4.2.5) lib/active_record/connection_adapters/postgresql_adapter.rb:44:in `new'
+  activerecord (4.2.5) lib/active_record/connection_adapters/postgresql_adapter.rb:44:in `postgresql_connection'
+  activerecord (4.2.5) lib/active_record/connection_adapters/abstract/connection_pool.rb:438:in `new_connection'
+  activerecord (4.2.5) lib/active_record/connection_adapters/abstract/connection_pool.rb:448:in `checkout_new_connection'
+  activerecord (4.2.5) lib/active_record/connection_adapters/abstract/connection_pool.rb:422:in `acquire_connection'
+  activerecord (4.2.5) lib/active_record/connection_adapters/abstract/connection_pool.rb:349:in `block in checkout'
+  /Users/craig/.rbenv/versions/2.3.1/lib/ruby/2.3.0/monitor.rb:214:in `mon_synchronize'
+  activerecord (4.2.5) lib/active_record/connection_adapters/abstract/connection_pool.rb:348:in `checkout'
+  activerecord (4.2.5) lib/active_record/connection_adapters/abstract/connection_pool.rb:263:in `block in connection'
+  /Users/craig/.rbenv/versions/2.3.1/lib/ruby/2.3.0/monitor.rb:214:in `mon_synchronize'
+  activerecord (4.2.5) lib/active_record/connection_adapters/abstract/connection_pool.rb:262:in `connection'
+  activerecord (4.2.5) lib/active_record/connection_adapters/abstract/connection_pool.rb:571:in `retrieve_connection'
+  activerecord (4.2.5) lib/active_record/connection_handling.rb:113:in `retrieve_connection'
+  activerecord (4.2.5) lib/active_record/connection_handling.rb:87:in `connection'
+  activerecord (4.2.5) lib/active_record/migration.rb:383:in `connection'
+  activerecord (4.2.5) lib/active_record/migration.rb:370:in `call'
+  actionpack (4.2.5) lib/action_dispatch/middleware/callbacks.rb:29:in `block in call'
+  activesupport (4.2.5) lib/active_support/callbacks.rb:88:in `__run_callbacks__'
+  activesupport (4.2.5) lib/active_support/callbacks.rb:778:in `_run_call_callbacks'
+  activesupport (4.2.5) lib/active_support/callbacks.rb:81:in `run_callbacks'
+  actionpack (4.2.5) lib/action_dispatch/middleware/callbacks.rb:27:in `call'
+  actionpack (4.2.5) lib/action_dispatch/middleware/reloader.rb:73:in `call'
+  actionpack (4.2.5) lib/action_dispatch/middleware/remote_ip.rb:78:in `call'
+  actionpack (4.2.5) lib/action_dispatch/middleware/debug_exceptions.rb:17:in `call'
+  web-console (2.3.0) lib/web_console/middleware.rb:28:in `block in call'
+  web-console (2.3.0) lib/web_console/middleware.rb:18:in `catch'
+  web-console (2.3.0) lib/web_console/middleware.rb:18:in `call'
+  actionpack (4.2.5) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  railties (4.2.5) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.2.5) lib/rails/rack/logger.rb:20:in `block in call'
+  activesupport (4.2.5) lib/active_support/tagged_logging.rb:68:in `block in tagged'
+  activesupport (4.2.5) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (4.2.5) lib/active_support/tagged_logging.rb:68:in `tagged'
+  railties (4.2.5) lib/rails/rack/logger.rb:20:in `call'
+  actionpack (4.2.5) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  rack (1.6.5) lib/rack/methodoverride.rb:22:in `call'
+  rack (1.6.5) lib/rack/runtime.rb:18:in `call'
+  activesupport (4.2.5) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+  rack (1.6.5) lib/rack/lock.rb:17:in `call'
+  actionpack (4.2.5) lib/action_dispatch/middleware/static.rb:116:in `call'
+  rack (1.6.5) lib/rack/sendfile.rb:113:in `call'
+  railties (4.2.5) lib/rails/engine.rb:518:in `call'
+  railties (4.2.5) lib/rails/application.rb:165:in `call'
+  rack (1.6.5) lib/rack/lock.rb:17:in `call'
+  rack (1.6.5) lib/rack/content_length.rb:15:in `call'
+  rack (1.6.5) lib/rack/handler/webrick.rb:88:in `service'
+  /Users/craig/.rbenv/versions/2.3.1/lib/ruby/2.3.0/webrick/httpserver.rb:140:in `service'
+  /Users/craig/.rbenv/versions/2.3.1/lib/ruby/2.3.0/webrick/httpserver.rb:96:in `run'
+  /Users/craig/.rbenv/versions/2.3.1/lib/ruby/2.3.0/webrick/server.rb:296:in `block in start_thread'
+
+
+  Rendered /Users/craig/.rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_source.erb (2.2ms)
+  Rendered /Users/craig/.rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (1.1ms)
+  Rendered /Users/craig/.rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.5ms)
+  Rendered /Users/craig/.rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (46.3ms)
+  Rendered /Users/craig/.rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/web-console-2.3.0/lib/web_console/templates/_markup.html.erb (0.3ms)
+  Rendered /Users/craig/.rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/web-console-2.3.0/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (0.2ms)
+  Rendered /Users/craig/.rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/web-console-2.3.0/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (0.3ms)
+  Rendered /Users/craig/.rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/web-console-2.3.0/lib/web_console/templates/style.css.erb within layouts/inlined_string (0.3ms)
+  Rendered /Users/craig/.rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/web-console-2.3.0/lib/web_console/templates/console.js.erb within layouts/javascript (47.6ms)
+  Rendered /Users/craig/.rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/web-console-2.3.0/lib/web_console/templates/main.js.erb within layouts/javascript (0.2ms)
+  Rendered /Users/craig/.rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/web-console-2.3.0/lib/web_console/templates/error_page.js.erb within layouts/javascript (0.3ms)
+  Rendered /Users/craig/.rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/web-console-2.3.0/lib/web_console/templates/index.html.erb (101.1ms)
+
+
+Started GET "/" for ::1 at 2017-02-05 21:34:47 +0200
+  [1m[36mActiveRecord::SchemaMigration Load (38.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by PagesController#home as HTML
+  [1m[35mArticle Load (71.6ms)[0m  SELECT  "articles".* FROM "articles"  ORDER BY "articles"."id" DESC LIMIT 5
+  [1m[36mUser Load (55.8ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mUser Load (5.4ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 2]]
+  Rendered pages/home.html.erb within layouts/application (120.2ms)
+  Rendered layouts/_nav.html.erb (8.9ms)
+  Rendered layouts/_foot.html.erb (0.9ms)
+Completed 200 OK in 890ms (Views: 555.3ms | ActiveRecord: 318.3ms)
+
+
+Started GET "/assets/yeti.self-1794b5c8df8766c03f1049c64698ef917df0f28a9dd72604d8f1ee6727e9e5a3.css?body=1" for ::1 at 2017-02-05 21:34:51 +0200
+
+
+Started GET "/assets/jquery.self-bd7ddd393353a8d2480a622e80342adf488fb6006d667e8b42e4c0073393abee.js?body=1" for ::1 at 2017-02-05 21:34:51 +0200
+
+
+Started GET "/assets/application.self-464210dd8e8f85bf274a87fa8efd451c2c458da7035d70d18f16294eb179a44e.css?body=1" for ::1 at 2017-02-05 21:34:51 +0200
+
+
+Started GET "/assets/footer.self-1b4a1c00a90f69307b1a070cad775c37b19caf88f8bdb2fe1d0c103fb8e9fa20.css?body=1" for ::1 at 2017-02-05 21:34:51 +0200
+
+
+Started GET "/assets/bootstrap/transition.self-6ad2488465135ab731a045a8ebbe3ea2fc501aed286042496eda1664fdd07ba9.js?body=1" for ::1 at 2017-02-05 21:34:51 +0200
+
+
+Started GET "/assets/bootstrap/alert.self-742145c5bb847aafdadc6e339be795628f8bc25f177e851f03a8c42278eb0312.js?body=1" for ::1 at 2017-02-05 21:34:51 +0200
+
+
+Started GET "/assets/bootstrap/button.self-126ac9bf0e7f2d8568f8da3a00fd5f0fac6eae0946331003370161fbf8d7975e.js?body=1" for ::1 at 2017-02-05 21:34:51 +0200
+
+
+Started GET "/assets/bootstrap/carousel.self-e47323f363ceb3dc0bdbce05e36e709ed428e339833a41140a85cb0af24b8127.js?body=1" for ::1 at 2017-02-05 21:34:51 +0200
+
+
+Started GET "/assets/bootstrap/collapse.self-2eb697f62b587bb786ff940d82dd4be88cdeeaf13ca128e3da3850c5fcaec301.js?body=1" for ::1 at 2017-02-05 21:34:51 +0200
+
+
+Started GET "/assets/bootstrap/modal.self-3e78617ade5663314b7ee0ea10375a5b34d59ffbade44939e3f2a4e4ef2019b3.js?body=1" for ::1 at 2017-02-05 21:34:51 +0200
+
+
+Started GET "/assets/bootstrap/tab.self-5bf7078b682f8b131332eefa46b45fa5eff2eca745fc0d03e2991450888f7c28.js?body=1" for ::1 at 2017-02-05 21:34:51 +0200
+
+
+Started GET "/assets/bootstrap/dropdown.self-561cca1cbaf67474e01e9536f106bad541594860a6df997004591c1c1957a147.js?body=1" for ::1 at 2017-02-05 21:34:51 +0200
+
+
+Started GET "/assets/bootstrap/affix.self-6d6f1a7fc5c8aabf3547fa1b794fab6268f54bc55ad815e55873c71f52513517.js?body=1" for ::1 at 2017-02-05 21:34:51 +0200
+
+
+Started GET "/assets/bootstrap/scrollspy.self-969f3c5f48cdf1e439c7fa1154c13b948715f5c689f87837c0b64521d3b46ef6.js?body=1" for ::1 at 2017-02-05 21:34:51 +0200
+
+
+Started GET "/assets/bootstrap/tooltip.self-05afb177e08f98997ccfc84fa08a215e4b27d48d5fe4d049080675e9dffd8199.js?body=1" for ::1 at 2017-02-05 21:34:51 +0200
+
+
+Started GET "/assets/bootstrap/popover.self-0aa93860b59fe7393f1dd490f54b3cb994f9d6155adffce034d4e14ae361b041.js?body=1" for ::1 at 2017-02-05 21:34:51 +0200
+
+
+Started GET "/assets/bootstrap-sprockets.self-fbfa5ad7d9aa0afe439ec4ff3883acc4cb92b62cb67c40d674320c9aa1d4642d.js?body=1" for ::1 at 2017-02-05 21:34:51 +0200
+
+
+Started GET "/assets/jquery_ujs.self-784a997f6726036b1993eb2217c9cb558e1cbb801c6da88105588c56f13b466a.js?body=1" for ::1 at 2017-02-05 21:34:51 +0200
+
+
+Started GET "/assets/turbolinks.self-c5acd7a204f5f25ce7a1d8a0e4d92e28d34c9e2df2c7371cd7af88e147e4ad82.js?body=1" for ::1 at 2017-02-05 21:34:51 +0200
+
+
+Started GET "/assets/application.self-f8806224e027f3e3f0138ea9ce99319e298dfdb323304d1f1be6eae8e8c74724.js?body=1" for ::1 at 2017-02-05 21:34:51 +0200
+
+
+Started GET "/assets/font-awesome/fontawesome-webfont-2adefcbc041e7d18fcf2d417879dc5a09997aa64d675b7a3c4b6ce33da13f3fe.woff2?v=4.7.0" for ::1 at 2017-02-05 21:34:52 +0200
+
+
+Started GET "/users/sign_in" for ::1 at 2017-02-05 22:15:25 +0200
+Processing by Devise::SessionsController#new as HTML
+  Rendered devise/shared/_links.html.erb (5.5ms)
+  Rendered devise/sessions/new.html.erb within layouts/application (100.0ms)
+  Rendered layouts/_nav.html.erb (0.5ms)
+  Rendered layouts/_foot.html.erb (0.1ms)
+Completed 200 OK in 172ms (Views: 167.4ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/users/sign_in" for ::1 at 2017-02-05 22:15:32 +0200
+Processing by Devise::SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"cFc/LfEsuEtqEWNzEUUzTGHPRnuNY5zhrQUMy2m49HZSChh6BYwIiOMFO44Ppk4BKD+Gi5QUg6tPMCFvxbkPWw==", "user"=>{"email"=>"craig@yoyozi.com", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Log in"}
+  [1m[36mUser Load (19.1ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."email" = $1  ORDER BY "users"."id" ASC LIMIT 1[0m  [["email", "craig@yoyozi.com"]]
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (3.8ms)[0m  [1mUPDATE "users" SET "last_sign_in_at" = $1, "current_sign_in_at" = $2, "sign_in_count" = $3, "updated_at" = $4 WHERE "users"."id" = $5[0m  [["last_sign_in_at", "2017-02-05 08:06:52.052149"], ["current_sign_in_at", "2017-02-05 20:15:33.149069"], ["sign_in_count", 5], ["updated_at", "2017-02-05 20:15:33.150793"], ["id", 1]]
+  [1m[35m (0.3ms)[0m  COMMIT
+Redirected to http://localhost:3000/articles/new
+Completed 302 Found in 182ms (ActiveRecord: 23.4ms)
+
+
+Started GET "/articles/new" for ::1 at 2017-02-05 22:15:33 +0200
+Processing by ArticlesController#new as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1  ORDER BY "users"."id" ASC LIMIT 1[0m  [["id", 1]]
+  Rendered articles/_form.html.erb (7.3ms)
+  Rendered articles/new.html.erb within layouts/application (8.9ms)
+  Rendered layouts/_nav.html.erb (0.2ms)
+  Rendered layouts/_foot.html.erb (0.0ms)
+Completed 200 OK in 54ms (Views: 44.5ms | ActiveRecord: 0.3ms)
+
+
+Started POST "/articles" for ::1 at 2017-02-05 22:16:03 +0200
+Processing by ArticlesController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"0vCUnzR1xP13QtrZNV3RHIs5T3tfzffpBMxlahTAb/i9fGd4QFC7MSqKW8xt7zsJLMzP1DhOdCPaEo7tCrUvAg==", "article"=>{"title"=>"gg", "body"=>"hghghghg vghghg gjhg jkhg jhg jhg ljkhg ljhg kljhg ljkhg ljhg jhlg ljhg liyg lkhjg liy7t lkjhg jlhg liuyg lyugjkg lkhjg khj jhg    kjhg jhg jhg jhg jhg jkg jhg jhg jhg jhg k.uh kjh kjh k"}, "commit"=>"Create Article"}
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1  ORDER BY "users"."id" ASC LIMIT 1  [["id", 1]]
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (23.7ms)[0m  INSERT INTO "articles" ("title", "body", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["title", "gg"], ["body", "hghghghg vghghg gjhg jkhg jhg jhg ljkhg ljhg kljhg ljkhg ljhg jhlg ljhg liyg lkhjg liy7t lkjhg jlhg liuyg lyugjkg lkhjg khj jhg    kjhg jhg jhg jhg jhg jkg jhg jhg jhg jhg k.uh kjh kjh k"], ["user_id", 1], ["created_at", "2017-02-05 20:16:03.515271"], ["updated_at", "2017-02-05 20:16:03.515271"]]
+  [1m[36m (171.5ms)[0m  [1mCOMMIT[0m
+Redirected to http://localhost:3000/articles/3
+Completed 302 Found in 199ms (ActiveRecord: 195.6ms)
+
+
+Started GET "/articles/3" for ::1 at 2017-02-05 22:16:03 +0200
+Processing by ArticlesController#show as HTML
+  Parameters: {"id"=>"3"}
+  [1m[35mArticle Load (0.2ms)[0m  SELECT  "articles".* FROM "articles" WHERE "articles"."id" = $1 LIMIT 1  [["id", 3]]
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1  ORDER BY "users"."id" ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  Rendered articles/show.html.erb within layouts/application (1.3ms)
+  Rendered layouts/_nav.html.erb (1.0ms)
+  Rendered layouts/_foot.html.erb (0.0ms)
+Completed 200 OK in 36ms (Views: 33.6ms | ActiveRecord: 0.8ms)
+
+
+Started GET "/" for ::1 at 2017-02-05 22:16:08 +0200
+Processing by PagesController#home as HTML
+  [1m[36mArticle Load (0.7ms)[0m  [1mSELECT  "articles".* FROM "articles"  ORDER BY "articles"."id" DESC LIMIT 5[0m
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 2]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  Rendered pages/home.html.erb within layouts/application (2.3ms)
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1  ORDER BY "users"."id" ASC LIMIT 1[0m  [["id", 1]]
+  Rendered layouts/_nav.html.erb (1.4ms)
+  Rendered layouts/_foot.html.erb (0.0ms)
+Completed 200 OK in 46ms (Views: 43.1ms | ActiveRecord: 1.5ms)
+
+
+Started GET "/users/edit" for ::1 at 2017-02-05 22:40:04 +0200
+Processing by RegistrationsController#edit as HTML
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1  ORDER BY "users"."id" ASC LIMIT 1  [["id", 1]]
+  Rendered devise/registrations/edit.html.erb within layouts/application (12.0ms)
+  Rendered layouts/_nav.html.erb (0.3ms)
+  Rendered layouts/_foot.html.erb (0.1ms)
+Completed 200 OK in 54ms (Views: 52.2ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/articles/new" for ::1 at 2017-02-05 22:40:07 +0200
+Processing by ArticlesController#new as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1  ORDER BY "users"."id" ASC LIMIT 1[0m  [["id", 1]]
+  Rendered articles/_form.html.erb (4.7ms)
+  Rendered articles/new.html.erb within layouts/application (5.8ms)
+  Rendered layouts/_nav.html.erb (0.2ms)
+  Rendered layouts/_foot.html.erb (0.0ms)
+Completed 200 OK in 51ms (Views: 48.8ms | ActiveRecord: 0.4ms)
+
+
+Started POST "/articles" for ::1 at 2017-02-05 22:40:27 +0200
+Processing by ArticlesController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"IXRra6W/AP9ksXXlNma/b0YU24ZCGfkiSVYxak0ooBRO+JiM0Zp/Mzl59PBu1FV64eFbKSWaeuiXiNrtU13g7g==", "article"=>{"title"=>"kjkj", "body"=>"kjkjkjkkjkjkj kj kj kj kj kj kj kj ij u hytg yg hjbjkj k"}, "commit"=>"Create Article"}
+  [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1  ORDER BY "users"."id" ASC LIMIT 1  [["id", 1]]
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "articles" ("title", "body", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["title", "kjkj"], ["body", "kjkjkjkkjkjkj kj kj kj kj kj kj kj ij u hytg yg hjbjkj k"], ["user_id", 1], ["created_at", "2017-02-05 20:40:27.251859"], ["updated_at", "2017-02-05 20:40:27.251859"]]
+  [1m[36m (6.1ms)[0m  [1mCOMMIT[0m
+Redirected to http://localhost:3000/articles/4
+Completed 302 Found in 10ms (ActiveRecord: 6.6ms)
+
+
+Started GET "/articles/4" for ::1 at 2017-02-05 22:40:27 +0200
+Processing by ArticlesController#show as HTML
+  Parameters: {"id"=>"4"}
+  [1m[35mArticle Load (0.3ms)[0m  SELECT  "articles".* FROM "articles" WHERE "articles"."id" = $1 LIMIT 1  [["id", 4]]
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1  ORDER BY "users"."id" ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  Rendered articles/show.html.erb within layouts/application (1.0ms)
+  Rendered layouts/_nav.html.erb (0.2ms)
+  Rendered layouts/_foot.html.erb (0.0ms)
+Completed 200 OK in 37ms (Views: 34.6ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/" for ::1 at 2017-02-05 22:40:33 +0200
+Processing by PagesController#home as HTML
+  [1m[36mArticle Load (0.4ms)[0m  [1mSELECT  "articles".* FROM "articles"  ORDER BY "articles"."id" DESC LIMIT 5[0m
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 2]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  Rendered pages/home.html.erb within layouts/application (2.5ms)
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1  ORDER BY "users"."id" ASC LIMIT 1  [["id", 1]]
+  Rendered layouts/_nav.html.erb (1.4ms)
+  Rendered layouts/_foot.html.erb (0.0ms)
+Completed 200 OK in 45ms (Views: 43.0ms | ActiveRecord: 1.2ms)
+
+
+Started GET "/articles/2" for ::1 at 2017-02-05 22:40:40 +0200
+Processing by ArticlesController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mArticle Load (0.3ms)[0m  [1mSELECT  "articles".* FROM "articles" WHERE "articles"."id" = $1 LIMIT 1[0m  [["id", 2]]
+  [1m[35mUser Load (0.4ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1  ORDER BY "users"."id" ASC LIMIT 1  [["id", 1]]
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 2]]
+  Rendered articles/show.html.erb within layouts/application (1.2ms)
+  Rendered layouts/_nav.html.erb (0.2ms)
+  Rendered layouts/_foot.html.erb (0.0ms)
+Completed 200 OK in 35ms (Views: 32.2ms | ActiveRecord: 0.9ms)
